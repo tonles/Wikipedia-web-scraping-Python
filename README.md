@@ -10,3 +10,4 @@ and then make some basic analysis.
 In the *bbp_data_extraction* file, you can find how I implemented the scraping of the tabular data for all 12 seasons.
 
 ## Step 2: make some EDA (work in progress...)
+![](/images/work_in_prog2.jpg)
