@@ -5,17 +5,18 @@ and then try to adapt the same code to other series, in order to create a sort o
 Consider this as a little Python workout!
 
 ## Step 1 - Building the main structure: scraping _The Big Bang Theory_ data
-In the *bbp_data_extraction* file, you can find how I implemented the scraping of the tabular data for all 12 seasons of the sitcom.
+In the _big_bang_main.py_ file, you can find how I implemented the scraping of the tabular data for all 12 seasons of the sitcom.
 The idea was to create a modular structure, in which I defined a function for each specific attribute that I want to extract from the web page.   
 In this case I focused on:
-1) the overall episode number (function _extract_episode_)
-2) U.S. viewers (function _extract_viewers_)
-3) original air date (function _extract_dates_)  
+1) the overall episode number (function _episodes_ in the _extract_episode.py_ file)
+2) U.S. viewers (function _viewers_ in the _extract_viewers.py_ file)
+3) original air date (function _dates_ in the _extract_dates.py_ file)  
 
 For every attribute I have created a list in which to insert the values extracted for each season.  
 Since the table for each season can be different for the number of rows (i.e. episodes), I have applied these three functions for each season.  
 With each season’s iteration, I have appended the corresponding results in each of the three main lists (_total_episodes_, _total_viewers_, _total_dates_).  
-After extracting all the data, I converted these main lists into a unique dataframe and then exported as a CSV file, for further data manipulation.
+After extracting all the data, I converted these main lists into a unique dataframe and then exported as a CSV file, for further data manipulation.  
+As an example, you can view the Jupyter Notebook document _bbp_data_extraction.jpynb_ in which you can find both the code and the data extracted.
 
 ## Step 2 - Tailoring the script for other series
 While scraping other series, I encountered some problems due to the different formatting of the tables, e.g. elements without a specific HTML tag or table rows with a different structure. I was able to solve these problems fairly quickly thanks to the modular structure of both the main script and the functions.  
@@ -31,8 +32,8 @@ This resulted in the extraction of a tag element in addition to the episode numb
 
 Since this exception appeared in different places in the table, I had to deal with it in different ways:
 
-* Seasons 7 and 9 (double episode in the last table position): I simply added a new variable epi_list_new which excludes the last element of the table, which is a tag element (please refer to _extract_episode_HIMYM_branch_7_9_)
-* Season 8: I added a new line where I deleted the tag element in the middle of the list (please refer to _extract_episode_HIMYM_branch_8_)  
+* Seasons 7 and 9 (double episode in the last table position): I simply added a new variable epi_list_new which excludes the last element of the table, which is a tag element (please refer to _extract_episode_HIMYM_branch_7_9.py_ file)
+* Season 8: I added a new line where I deleted the tag element in the middle of the list (please refer to _extract_episode_HIMYM_branch_8.py_ file)  
 
 Regarding the differences related to the scraping of the number of viewers, in some tables there were cells with a different HTML structure, as there were not the usual _href_ tags encountered in the previous table's structure (e.g. refer to the last column for episodes 50, 55 and 56):  
 
@@ -40,8 +41,18 @@ Regarding the differences related to the scraping of the number of viewers, in s
 
 I handled the different types of exceptions in the following way:
 
-* Season 2: only one episode without the _href_ tag for number of viewers, in the middle of the table. I divided the original list of values in two sub-lists, where for the first I took the odd elements, and for the second only the even elements (please refer to _extract_viewers_HIMYM_branch_2_)
-* Season 3: multiple episodes without _href_ tags, in various positions of the table. I applied the previous concept of splitting the original list, but this time into four sub-lists, taking odd and even values each time, depending on the table structure (please refer to _extract_viewers_HIMYM_branch_2_)  
+* Season 2: only one episode without the _href_ tag for number of viewers, in the middle of the table. I divided the original list of values in two sub-lists, where for the first I took the odd elements, and for the second only the even elements (please refer to _extract_viewers_HIMYM_branch_2.py_ file)
+* Season 3: multiple episodes without _href_ tags, in various positions of the table. I applied the previous concept of splitting the original list, but this time into four sub-lists, taking odd and even values each time, depending on the table structure (please refer to _extract_viewers_HIMYM_branch_2.py_ file)  
+
+For the scraping of _How I Met Your Mother_ data, you can refer to the following files in this repo:  
+* _HIMYM_main.py_
+* _extract_episode_HIMYM.py_ 
+* _extract_episode_HIMYM_branch_7_9.py_
+* _extract_episode_HIMYM_branch_8.py_
+* _extract_viewers_HIMYM.py_
+* _extract_viewers_HIMYM_branch_2.py_
+* _extract_viewers_HIMYM_branch_3.py_
+* _extract_dates_HIMYM.py_
 
 ## Step 3 - Take a look at the results  
 Once I scraped all the tables of interest, I plotted them to get a rough idea of the data and, of course, to see the result of hours of labour and sweat!  
