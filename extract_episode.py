@@ -12,7 +12,7 @@ def episodes(soup, col, season_rows):
         episode = row.findAll('th')[0]
         episodes_1.append(episode)
 
-        # Extract and convert to int the episode numbers
+    # Extract and convert to int the episode numbers
     ep_new = []
     for index in range(season_rows):
         epi_1 = list(episodes_1[index])  # with list() I can extract data I need in the HTML page
